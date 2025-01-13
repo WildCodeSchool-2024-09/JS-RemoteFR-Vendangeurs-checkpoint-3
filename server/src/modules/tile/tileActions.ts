@@ -13,7 +13,10 @@ const browse: RequestHandler = async (req, res, next) => {
 const validate: RequestHandler = async (req, res, next) => {
   try {
     const { coord_x, coord_y } = req.body;
-    const affectedRows = await tileRepository.readByCoordinates(coord_x, coord_y);
+    const affectedRows = await tileRepository.readByCoordinates(
+      coord_x,
+      coord_y,
+    );
 
     if (affectedRows.length === 0) {
       res.sendStatus(422);

@@ -21,10 +21,7 @@ class TileRepository {
 
   async readByCoordinates(coordX: number, coordY: number) {
     const [rows] = await databaseClient.query<Rows>(
-      `SELECT coord_x coordX, coord_y coordY
-      FROM tile
-      WHERE coord_x = ? AND coord_y = ?
-      `,
+      "SELECT * FROM tile WHERE coord_x = ? AND coord_y = ?",
       [coordX, coordY],
     );
 

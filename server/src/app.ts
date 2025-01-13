@@ -4,6 +4,15 @@ import express from "express";
 
 const app = express();
 
+/* ************************************************************************* */
+
+// Import the API router
+import router from "./router";
+
+// Mount the API router under the "/api" endpoint
+app.use(router);
+
+/* ************************************************************************* */
 // Configure it
 
 /* ************************************************************************* */
@@ -56,16 +65,6 @@ app.use(express.json());
 // app.use(express.urlencoded());
 // app.use(express.text());
 // app.use(express.raw());
-
-/* ************************************************************************* */
-
-// Import the API router
-import router from "./router";
-
-// Mount the API router under the "/api" endpoint
-app.use(router);
-
-/* ************************************************************************* */
 
 // Production-ready setup: What is it for?
 

@@ -10,9 +10,10 @@ type Boat = {
 };
 
 class BoatRepository {
-  async readAll(where = {}) {
-    const [rows] = await databaseClient.query<Rows>(
-      `
+  async readAll(where: Partial<Boat> = {}) {
+    if (!where.name) {
+      const [rows] = await databaseClient.query<Rows>(
+        `
       SELECT boat.id, boat.coord_x, boat.coord_y, boat.name, tile.type, tile.has_treasure
       FROM boat
       JOIN tile
@@ -20,6 +21,22 @@ class BoatRepository {
       AND boat.coord_y = tile.coord_y
       ORDER BY boat.coord_y, boat.coord_x
       `,
+      );
+
+      return rows as Boat[];
+    }
+
+    const [rows] = await databaseClient.query<Rows>(
+      `
+      SELECT boat.id, boat.coord_x, boat.coord_y, boat.name, tile.type, tile.has_treasure
+      FROM boat
+      JOIN tile
+      ON boat.coord_x = tile.coord_x
+      AND boat.coord_y = tile.coord_y
+      WHERE name = ?
+      ORDER BY boat.coord_y, boat.coord_x
+      `,
+      [where.name],
     );
 
     return rows as Boat[];

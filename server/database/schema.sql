@@ -6,7 +6,7 @@ CREATE TABLE boat (
   PRIMARY KEY(id)
 );
 
-CREATE TABLE title (
+CREATE TABLE tile (
   id INT AUTO_INCREMENT NOT NULL,
   type VARCHAR(255) NOT NULL,
   coord_x INT NOT NULL,

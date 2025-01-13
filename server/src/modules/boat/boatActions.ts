@@ -19,7 +19,6 @@ const edit: RequestHandler = async (req, res, next) => {
   try {
     const boat = {
       id: Number(req.params.id),
-      name: req.body.name,
       coord_x: Number(req.body.coord_x),
       coord_y: Number(req.body.coord_y),
     };

@@ -11,18 +11,33 @@ type Boat = {
 
 class BoatRepository {
   async readAll(where = {}) {
-    // Execute the SQL SELECT query to retrieve all boats from the "boat" table
+    // Exécuter la requête SELECT pour récupérer tous les bateaux
     const [rows] = await databaseClient.query<Rows>(
       "select * from boat order by coord_y, coord_x",
     );
-
-    // Return the array of tiles
     return rows as Boat[];
   }
 
   async update(boatToUpdate: Partial<Boat>) {
-    // your code here
-    return 0;
+    const { id, coord_x, coord_y } = boatToUpdate;
+
+    if (id == null || coord_x == null || coord_y == null) {
+      throw new Error("Missing required fields for update");
+    }
+
+    const sql = `
+      UPDATE boat
+      SET coord_x = ?, coord_y = ?
+      WHERE id = ?
+    `;
+
+    const [result] = await databaseClient.query<Result>(sql, [
+      coord_x,
+      coord_y,
+      id,
+    ]);
+
+    return result.affectedRows; // Nombre de lignes affectées
   }
 }
 

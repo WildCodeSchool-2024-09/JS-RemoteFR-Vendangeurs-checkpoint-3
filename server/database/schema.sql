@@ -6,11 +6,12 @@ CREATE TABLE boat (
   PRIMARY KEY(id)
 );
 
-CREATE TABLE tile (
+CREATE TABLE title (
   id INT AUTO_INCREMENT NOT NULL,
   type VARCHAR(255) NOT NULL,
   coord_x INT NOT NULL,
   coord_y INT NOT NULL,
+  has_treasure BOOLEAN NOT NULL DEFAULT FALSE,
   PRIMARY KEY(id)
 );
 

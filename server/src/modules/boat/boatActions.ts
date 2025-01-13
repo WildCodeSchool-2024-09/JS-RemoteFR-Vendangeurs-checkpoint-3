@@ -1,5 +1,4 @@
 import type { RequestHandler } from "express";
-
 import boatRepository from "./boatRepository";
 
 const browse: RequestHandler = async (req, res, next) => {
@@ -16,7 +15,24 @@ const browse: RequestHandler = async (req, res, next) => {
 };
 
 const edit: RequestHandler = async (req, res, next) => {
-  // your code here
+  try {
+    const boats = {
+      id: Number.parseInt(req.params.id),
+      coord_x: Number.parseInt(req.body.coord_x),
+      coord_y: Number.parseInt(req.body.coord_y),
+      name: String(req.body.name),
+    };
+
+    const affectedRows = await boatRepository.update(boats);
+
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    next(err);
+  }
 };
 
 export default {

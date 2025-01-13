@@ -14,9 +14,7 @@ const browse: RequestHandler = async (req, res, next) => {
   }
 };
 
-const validate: RequestHandler = async (req, res, next) => {
-  // your code here
-};
+const validate: RequestHandler = async (req, res, next) => {};
 
 export default {
   browse,

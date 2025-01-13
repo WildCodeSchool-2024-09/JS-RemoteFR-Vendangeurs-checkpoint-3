@@ -20,9 +20,15 @@ class BoatRepository {
     return rows as Boat[];
   }
 
-  async update(boatToUpdate: Partial<Boat>) {
-    // your code here
-    return 0;
+  async update(boats: Boat) {
+    // Execute the SQL UPDATE query to update an existing category in the "category" table
+    const [result] = await databaseClient.query<Result>(
+      "UPDATE boat SET coord_x = ?, coord_y = ? WHERE id = ?",
+      [boats.coord_x, boats.coord_y, boats.id, boats.name],
+    );
+
+    // Return how many rows were affected
+    return result.affectedRows;
   }
 }
 

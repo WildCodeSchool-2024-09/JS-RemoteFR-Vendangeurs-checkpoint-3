@@ -135,14 +135,18 @@ npm run test install
 Tu peux maintenant réaliser la suite, étape par étape (pour chaque étape, suis les indications des tests dans la console) :
 
 - `npm run test step1` : ajouter un champ `has_treasure` à la table `tile` (booléen, non nul, `false` par défaut).
+
 - `npm run test step2` : créer une route `GET /api/tiles` avec une action fonctionnelle (tu peux suivre le modèle de `GET /api/boats`).
+
 - `npm run test step3` : créer une route `PUT /api/boats/:id` pour mettre à jour un bateau de la base de données. Pense à revoir la quête "BREAD" sur Odyssey pour t'aider : tu dois ici réaliser l'opération "Edit". Ta route doit renvoyer un statut `204` si la mise à jour a réussi. Dans ton action, tu peux accéder avec le paramètre `req` à :
   - l'id du bateau (`req.params.id`),
   - ses coordonnées X et Y (`req.body.coord_x` et `req.body.coord_y`).
+
 - `npm run test step4` : créer un middleware dans `server/app/modules/tile/tileActions.ts` pour tester si une tuile avec les coordonnées `req.body.coord_x` et `req.body.coord_y` existe ou non dans la base de données.
   - Pour cette étape, idéalement tu dois utiliser `tileRepository` pour trouver des tuiles à partir de leurs coordonnées (tu dois compléter la méthode `readByCoordinates` de la classe `TileRepository`).
   - Si tu as des difficultés à utiliser `tileRepository`, tu peux t'en passer en vérifiant que la coordonnée X est comprise entre 0 et 11 (inclus), et que la coordonnée Y est comprise entre 0 et 5 (inclus).
   - Si les coordonnées sont valides, passe au suivant. Sinon, répond avec un statut `422`.
+  
 - `npm run test step5` : utiliser une jointure dans la méthode `readAll` de `BoatRepository` pour récupérer les informations de la tuile où se trouve le bateau. Assure toi de demander explicitement chaque champ (la jointure va te fournir 2 ids : `boat.id` et `tile.id`).
 
 Étape bonus :

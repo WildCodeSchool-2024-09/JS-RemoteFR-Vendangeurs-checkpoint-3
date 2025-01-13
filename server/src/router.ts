@@ -7,9 +7,10 @@ const router = express.Router();
 /* ************************************************************************* */
 
 import boatActions from "./modules/boat/boatActions";
+import tileActions from "./modules/tile/tileActions";
 
 router.get("/api/boats", boatActions.browse);
-router.put("/api/boats/:id", boatActions.edit);
+router.put("/api/boats/:id", tileActions.validate, boatActions.edit);
 
 /* ************************************************************************* */
 
@@ -18,8 +19,6 @@ import gameActions from "./modules/game/gameActions";
 router.post("/api/games", gameActions.add);
 
 /* ************************************************************************* */
-
-import tileActions from "./modules/tile/tileActions";
 
 router.get("/api/tiles", tileActions.browse);
 

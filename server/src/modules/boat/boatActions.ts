@@ -16,7 +16,22 @@ const browse: RequestHandler = async (req, res, next) => {
 };
 
 const edit: RequestHandler = async (req, res, next) => {
-  // your code here
+  try {
+    const boatId = Number.parseInt(req.params.id, 10);
+    const boatData = req.body;
+    const affectedRows = await boatRepository.update({
+      ...boatData,
+      id: boatId,
+    });
+
+    if (affectedRows > 0) {
+      res.status(204).send();
+    } else {
+      res.status(404).send();
+    }
+  } catch (err) {
+    next(err);
+  }
 };
 
 export default {

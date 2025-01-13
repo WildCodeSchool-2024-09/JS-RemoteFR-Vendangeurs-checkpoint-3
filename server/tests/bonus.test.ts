@@ -8,7 +8,10 @@ import boatRepository from "../src/modules/boat/boatRepository";
 
 describe("GET /api/boats?name=Black Pearl", () => {
   test("you added a 'where' parameter to method readAll() in BoatRepository", async () => {
-    expect(boatRepository.readAll).toHaveLength(1);
+    const spy = jest.spyOn(boatRepository, "readAll");
+    await boatRepository.readAll({ name: "Black Pearl" });
+    expect(spy).toHaveBeenCalledWith({ name: "Black Pearl" });
+    spy.mockRestore();
   });
   test("your method readAll() returns all boats if where == null", async () => {
     const rows = await boatRepository.readAll();
